@@ -1,0 +1,125 @@
+\section{Context-Aware Ranking}
+
+
+\begin{frame}{Context-Aware Ranking}
+
+Main problems:
+\begin{itemize}
+	\item how can we take advantage of different types of contexts in ranking?
+	\item how can we integrate context information into a ranking model? \newline
+\end{itemize}
+
+Context contains:
+\begin{itemize}
+	\item queries asked before the current query in the same session
+	\item answers to those queries (clicked or skipped by the user) \newline
+\end{itemize}
+
+Example: ({\color{red} ar putea sa lipseasca, sa fie amintit de prezentator}) \newline
+	if a user makes a query “jaguar” after searching “mercedes” then it is very likely to seek information about a Jaguar car rather than a jaguar as an animal
+
+\end{frame}
+
+
+\begin{frame}{Context-Aware Ranking Principles}
+
+Relations between queries in the same session:
+\begin{itemize}
+	\item unrelated
+	\item reformulation
+	\item specialization
+	\item generalization
+	\item general association
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Reformulation}
+
+Example: \newline
+'homes for rent in atlanta' $ \rightarrow $ 'houses for rent in atlanta' \newline
+
+Why? \newline
+- search results of the previous query do not or only partially fulfill the information need \newline
+
+Principle:
+\begin{quotation}
+for consecutive queries $ q_{t-1}q_{t} $ in a session such that $ q_{t} $ reformulates $ q_{t-1} $, if a search result \emph{r} for $ q_{t-1} $ is clicked on or skipped, \emph{r} as a result for $ q_{t} $ is unlikely to be clicked on and thus should be demoted
+\end{quotation}
+
+\end{frame}
+
+
+\begin{frame}{Specialization}
+
+Example: \newline
+'time life music' $ \rightarrow $ 'time life Christian CD' \newline
+
+Why? \newline
+- see more specific results \newline
+
+Principle:
+\begin{quotation}
+for consecutive queries $ q_{t-1}q_{t} $ in a session such that $ q_{t} $ specializes $ q_{t-1} $, the user likely prefers the search results specifically focusing on $ q_{t} $
+\end{quotation}
+
+Implementation: \newline
+- promote the results matching $ q_{t} \setminus q_{t-1} $ in the set of answers to $ q_{t} $
+
+\end{frame}
+
+
+\begin{frame}{Generalization}
+
+Example: \newline
+'free online Tetris' $ \rightarrow $ 'Tetris game' \newline
+
+Why? \newline
+- get information not covered by the previous query \newline
+
+Principle:
+\begin{quotation}
+for consecutive queries $ q_{t-1}q_{t} $ in a session such that $ q_{t} $ generalizes $ q_{t-1} $, the user would likely not prefer the search results specifically focusing on $ q_{t-1} $
+\end{quotation}
+
+Implementation: \newline
+- demote the results matching $ q_{t-1} \setminus q_{t} $ in the set of answers to $ q_{t} $
+
+\end{frame}
+
+
+\begin{frame}{General Association}
+\begin{small}
+
+Example: \newline
+'Xbox 360' $ \rightarrow $ 'FIFA 2010' \newline
+
+Why? \newline
+- when an ambiguous query is generally associated with its context, the context may help to narrow down the user's search intent \newline
+
+Principle:
+\begin{quotation}
+for consecutive queries $ q_{t-1}q_{t} $ in a session such that $ q_{t} $ and $ q_{t-1} $ are generally associated, the user likely prefers the search results related to both $ q_{t-1} $ and $ q_{t} $
+\end{quotation}
+
+Implementation:
+\begin{itemize}
+	\item choose a topic taxonomy (such as Open Directory Project: http://www.dmoz.org)
+	\item let $ C_{t-1} $ and $ C_{t} $ be the sets of topics of $ q_{t-1} $ and $ q_{t} $, and $ C_{\cap} $ the set of common topics between $ C_{t-1} $ and $ C_{t} $; promote a search result \emph{r} if the set of topics of \emph{r} shares at least one topic with $ C_{\cap} $
+\end{itemize}
+
+\end{small}
+\end{frame}
+
+
+\begin{frame}{Learning to rank}
+
+Supervized machine learning problem in which the goal is to automatically construct a ranking model from training data \newline
+
+RankSVM – learn a SVM model for classification on the preference between a pair of documents \newline
+
+Derive features from the ranking principles and incorporate them into the RankSVM model
+
+\end{frame}
+
