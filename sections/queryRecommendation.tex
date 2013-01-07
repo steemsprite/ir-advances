@@ -48,9 +48,9 @@ Concept Hierarchy:
 
 Use term co-occurence to build a subsumption hierarchy tree \newline
 
-x subsume y when:
+x subsumes y when:
 \[
-	df(x) > df(y) \land d(x \land y) / df(y) \geq \alpha
+	df(x) > df(y) \land df(x \land y) / df(y) \geq \alpha
 \]
 where:
 \begin{itemize}
@@ -72,7 +72,7 @@ $ G_{SHReC} = (V, E, w) $:
 
 Terms ranked by:
 \[
-	w(x, y) = d(x \land y) / df(x)
+	w(x, y) = df(x \land y) / df(x)
 \]
 
 \begin{figure}
