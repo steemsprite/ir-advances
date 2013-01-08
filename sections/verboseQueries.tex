@@ -1,0 +1,106 @@
+\section{Verbose Queries}
+
+\begin{frame}
+\frametitle{Verbose Queries}
+\begin{block}
+	{Long queries in which people use many words to say what could have been expressed in a few keywords.}
+\end{block}
+%\begin{itemize}
+%\item
+$\bullet$
+	Small but significat part of the query stream in web search.\\
+	e.g. The average length of the MSN queries(15 million in a month) is 2.4 words. 10\% are 5 words or longer.\\
+%\item
+\vskip10pt
+$\bullet$
+	Current search engines do not perform well with long queries.\\
+%\item
+\vskip10pt
+$\bullet$
+	The most effective approach is to simply reduce the length:
+	\begin{enumerate}
+	\item
+		stopword removal
+	\item
+		phrase detection
+	\item
+		key concept identification
+	\item
+		stop structure removal
+	\end{enumerate}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stopword removal}
+\begin{block}
+	{Removing all words in the query which occur on the stopword list}
+\end{block}
+\begin{itemize}
+\item
+the standard INQUERY stopword list \\
+e.g. \textit{Can I work while study in Europe} $\rightarrow$ \textit{work study Europe}	
+\item
+automatically constructed collection dependent stopword list (frequency weighting methods)\\
+Problem: Common query phrases such as \textit{"high blood pressure"} occur as frequently as some stop words.
+\end{itemize}
+\vskip10pt
+This technique can change the meaning of the query:\\
+e.g. \textit{i would like to know the origin of the phrase to be or not to be} $\rightarrow$ \textit{know origin phrase}
+\end{frame}
+
+\begin{frame}
+\frametitle{Noun phrase detection}
+Verbose queries are constructed as phrases or sentences.\\
+\vskip10pt
+Noun phrases can be automatically identified (e.g. MontyLingua toolkit).\\
+e.g. noun phrases for \textit{give me a name for my next horror film}: \textit{"me"}, \textit{"a name"}, \textit{"my next horror film"}\\
+\vskip10pt
+Query reformulation techniques:\\
+\begin{enumerate}
+\item
+wrap each of the noun phrases in quotation marks, without removing words:\\
+\textit{give "me" "a name" for "my next horror film"}
+\item
+remove all words which are not part of a detected word phrase:\\
+\textit{me a name my next horror film}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key concept detection}
+\begin{block}
+{Key concept = short set of sequential words that express an important idea contained within the query}
+\end{block}
+Automaticallly identified with classifiers including features like: inverse document frequency, weighted information gain etc.\\
+e.g. key concepts for \textit{"i read that ions cant have net dipole moments why not"}: \textit{i}, \textit{ions}, \textit{net dipole moments}\\
+\vskip10pt 
+Similar reformulation techniques:\\
+\begin{enumerate}
+\item
+wrap each key concept in quotation marks, without removing words:\\
+\textit{"i" read that "ions" cant have "net dipole moments" why not}
+\item
+remove all words which are not part of a detected key concept:\\
+\textit{i ions net dipole moments}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Stop structure}
+\begin{block}
+{Stop phrase that begins at the first word in the query.}
+stop phrase =  phrase that does not provide any information about the information need
+\end{block}
+\vskip10pt
+The stop structure can be automatically detected with a sequential classifier.
+\vskip10pt
+Query reformulation: stop structure removed from query\\
+\vskip10pt
+e.g. \textit{"if i am having a lipid test can i drink black coffee"}\\
+stop phrases: \textit{"if i am having a"}, \textit{"can i"}\\
+query reformulation: \textit{"lipid test can i drink black coffee"}
+
+\end{frame}
+
