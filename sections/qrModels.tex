@@ -1,0 +1,101 @@
+\section{Generalized Models of Query Reformulation}
+
+\begin{frame}
+	\frametitle{Query Reformulation}
+	\begin{block}
+	 {The process of iteratively modifying a query to improve
+the quality of a search engine results}
+	\end{block}
+	\begin{itemize}	
+	 \item Explicitly: suggesting related queries or query completions
+	 \item Implicitly: query expansion
+	\end{itemize}
+	\vskip5pt
+	Reformulations are close to the previous query both:
+	\begin{itemize}
+	 \item \textit{syntactically}, as sequence of characters and terms
+	 \item \textit{semantically}, involving taxonimic relations (generalization, specialization).
+	\end{itemize}
+	\textbf{Goal}: Models for query reformulation which combine the syntactic and
+the semantic aspects (generalized models)
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Semantic similarity measures}
+	\begin{columns}
+	 \column{.6\textwidth}
+	  \structure{PMI (pointwise mutual information)}
+	 \column{.4\textwidth}
+	  \begin{equation}
+PMI(x,y)=\log{\frac{p(x,y)}{p(x)p(y)}}
+	  \nonumber
+	  \end{equation}
+	\end{columns}
+	\begin{columns}
+	 \column{.6\textwidth}
+\textbf{Joint} - shared information between two strings
+	 \column{.4\textwidth}
+	  \begin{equation}
+PMI(J)(x,y)=\frac{PMI(x,y)}{-\log{p(x,y)}}
+	  \nonumber
+	  \end{equation}
+	\end{columns}
+	\begin{columns}
+	 \column{.6\textwidth}
+\textbf{Specialization} - the second string is a specialization of the first one
+	 \column{.4\textwidth}
+	  \begin{equation}
+PMI(S)(x,y)=\frac{PMI(x,y)}{-\log{p(x)}}
+	  \nonumber
+	  \end{equation}
+	\end{columns}
+	\begin{columns}
+	 \column{.6\textwidth}
+\textbf{Generalization} - the second string is a generalization of the first one
+	 \column{.4\textwidth}
+	  \begin{equation}
+PMI(G)(x,y)=\frac{PMI(x,y)}{-\log{p(y)}}
+	  \nonumber
+	  \end{equation}
+	\end{columns}
+	\vskip7pt
+	$\bullet$ x="apple", y="mac os": PMI(G)=0.2917, PMI(S)=0.3686 $\Rightarrow$ specialization \newline
+	$\bullet$ x="ferrari models", y="ferrari": PMI(G)=1, PMI(S)=0.558 $\Rightarrow$ "perfect"generalization
+\end{frame}
+
+\begin{frame}
+	\frametitle{Syntactic similarity measures}
+	\textbf{The Levenshtein distance(edit distance)} between x and y is the cost of the least expensive sequence of edit operations which transform x into y.
+	\vskip7pt
+
+	$\omega=(a_{1},b_{1}),...,(a_{n},b_{n})$ - sequence of edit operations (insert, delete, substitute) \newline
+	c($\omega$)=$\sum_{i=0}^n c$($\omega_{i}$) - cost of the sequence
+
+	\vskip7pt
+	Examples of cost functions:
+	\begin{itemize}
+	 \item
+          - Edit1: unit costs for each of the three edit operations
+	  $\forall a,b, c_{E_{1}}(a,b)=1, if\ {a}\neq{b}, 0\ otherwise$
+	 \item
+	 - Edit2: unit costs for insertion and deletion, edit distance for substitution (if two items are similar at character level, the cost of substitution is lower) 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Generalized edit distance}
+	\begin{block}
+	{Extension of Levenshtein to take into consideration semantic similarities}
+	\end{block}
+	\textbf{GenEdit}:
+$\forall a,b, c_{GE}(a,b)=s(a,b), if {{a}\wedge{b}}\neq{\xi},\ 1 \ otherwise$ where
+s(a,b) = 2 - 2f(a,b) + $\epsilon$, S=\textit{cost matrix},\newline
+f = normalized semantic similarity function (e.g. PMI(S)),\newline
+$\epsilon$ = correction \newline
+	\textbf{Properties}:
+	\begin{itemize}
+	\item it is cheaper to substitute two semantically associated terms than deleting one and inserting the other one
+	\item for an unrelated term pair, a combination of insertion and deletion is cheaper than a substitution
+ 	\end{itemize}
+\end{frame}
