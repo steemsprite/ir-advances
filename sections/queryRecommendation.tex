@@ -89,36 +89,13 @@ Concept Hierarchy:
 
 Use term co-occurence to build a subsumption hierarchy tree \newline
 
-x subsumes y when:
-\[
-	df(x) > df(y) \land df(x \land y) / df(y) \geq \alpha
-\]
-where:
+For each concept (node in graph):
 \begin{itemize}
-	\item \emph{df} is the document frequency function
-	\item \emph{$ \alpha $} is the strength of subsumption \newline
+	\item all direct ascendants are generalizations for the current concept
+	\item all direct descendants are specializations for the current concept \newline
 \end{itemize}
 
-$ G_{SHReC} = (V, E, w) $:
-\begin{itemize}
-	\item \emph{V}, set of nodes containing all unique concepts + a special node 'SHReC root'
-	\item $ E \subseteq V \times V $, set of directed edges
-	\item $ w : E \rightarrow (0..1] $, weighting function 
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{SHReC - example}
-
-Terms ranked by:
-\[
-	w(x, y) = df(x \land y) / df(x)
-\]
-
-\begin{figure}
-	\includegraphics[scale=0.4]{img/SHReC-Example.png}
-\end{figure}
+Static hierarchy with a high computational cost to frequently rebuild it 
 
 \end{frame}
 
@@ -137,9 +114,11 @@ Query Flow Graph
 	\item directed graph:
 		\begin{itemize}
 			\item nodes contain queries
-			\item edges represent query refinements 
+			\item edges represent query refinements \newline
 		\end{itemize}
 \end{itemize}
+
+Dynamic structure and easy to be updated
 
 \end{frame}
 
@@ -153,53 +132,6 @@ Search Logs provide a conceptual view based on collective user intelligence \new
 Two complementary conceptual views on the same search domain
 $ \Rightarrow $
 Adapt the CHM with user interactions derived from Search Logs
-
-\end{frame}
-
-
-\begin{frame}{Adapting SHReC with Search Logs - algorithm}
-
-\begin{scriptsize}
-	\begin{columns}
-		\begin{column}[l]{0.5\textwidth}
-			$ G_{SHReC} = (V, E, w) $ \\
-			$ G_{normSHReC} $, normalised SHReC \\
-			$ R = \{r_{1}, ..., r_{n}\} $, reformulations \\
-			$ r_{i} = x \rightarrow y $, query 'x' reformulated as query 'y' \\
-			$ lw(r_{i}) = logWeight(x, y) = \frac{totalFreq(x \rightarrow y)}{totalFreq(x \rightarrow *)} $ \\
-		\end{column}
-
-		\begin{column}[l]{0.5\textwidth}
-			\begin{tabbing}
-				$ G_{normSHReC} = norm(G_{SHReC}) = (V, E, w_{adapted}, w') $ \\
-				for \= each $ r_{i} \in R $ do \\
-				\>	if \ \= $ x \in V $ and $ y \in V $ then \\
-				\>	\>	$ G_{normSHReC}.updateweights(x, y, lw(r_{i})) $ \\
-				\>	\>	$ w_{adapted}(x, y) = w'(r_{i}) + lw(r_{i}) $ \\
-				\>	else if $ x \in V $ and $ y \notin V $ then \\
-				\>	\>	$ G_{normSHReC}.addDescendant(x, y, lw(r_{i})) $ \\
-				\>	\>	$ w_{adapted}(x, y) = lw(r_{i}) $ \\
-				\>	else if $ x \notin V $ and $ y \in V $ then \\
-				\>	\>	$ G_{normSHReC}.addAscendant(y, x, lw(r_{i})) $ \\
-				\>	\>	$ w_{adapted}(x, y) = lw(r_{i}) $ \\
-				\>	else \\
-				\>	\>	$ G_{normSHReC}.add(y, x, lw(r_{i})) $ \\
-				\>	\>	$ w_{adapted}(x, y) = lw(r_{i}) $ \\
-				\>	end if \\
-				end for \\
-			\end{tabbing}
-		\end{column}
-	\end{columns}
-\end{scriptsize}
-
-\end{frame}
-
-
-\begin{frame}{Adapting SHReC with Search Logs - example}
-
-\begin{figure}
-	\includegraphics[scale=0.3]{img/A-SHReC-Example.png}
-\end{figure}
 
 \end{frame}
 
