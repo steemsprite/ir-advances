@@ -1,0 +1,115 @@
+\subsection{Implicit Feedback Analysis}
+
+\begin{frame}{Implicit Feedback}
+  \begin{itemize}
+  \item Explicit feedback
+    \begin{itemize}
+    \item Ask users to rank results
+    \end{itemize}
+
+  \item Implicit feedback
+    \begin{itemize}
+    \item \textbf{On what links did the user click?}
+    \item Eye Tracking
+    \end{itemize}
+
+
+  \item Is implicit feedback useful?
+    \begin{itemize}
+    \item Pros
+      \begin{itemize}
+        \item Easier to obtain in large quantities
+        \item No burden on the user
+      \end{itemize}
+    \item Cons
+      \begin{itemize}
+        \item More difficult to interpret
+        \item Potentially noisy
+      \end{itemize}
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Implicit Feedback Experiment}
+  \begin{itemize}
+  \item Can we infer anything from click patterns? \newline
+  \item Suppose we invent a new algorithm to do so. \newline
+  \item How to check if it's correct? \newline
+    \begin{enumerate}
+    \item Ask users to perform some search tasks using Google
+    \item Gather both explicit and implicit feedback
+    \item Apply the algorithm on the implicit feedback
+    \item Validate the results using explicit feedback
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+%\begin{frame}{User Study}
+%  \begin{itemize}\addtolength{\itemsep}{1.0\baselineskip}
+%    \item Some general facts (obtained from the study)
+%      \begin{itemize}\addtolength{\itemsep}{1.0\baselineskip}
+%      \item Users click more often on the first link
+%      \item The first two links receive equal attention (number of fixations)
+%      \item Users tend to scan the results from top to bottom
+%      \end{itemize}
+%  \end{itemize}
+%\end{frame}
+
+\begin{frame}{Analyzing Clicks}
+  \begin{itemize}
+  \item Are clicks absolute relevance judgments?
+    \begin{itemize}
+    \item Short answer: No
+    \item Trust Bias
+      \begin{itemize}
+      \item Users trust the search engine
+      \item First link receives the most clicks
+        (Even if the first two results are swapped without user knowledge)
+      \end{itemize}
+    \item Quality-of-Context Bias
+      \begin{itemize}
+      \item If the relevance of the results decreases, users click on links
+        that are on average less relevant
+      \end{itemize}
+    \end{itemize}
+  \item Clicks are only relative relevance judgments
+    \begin{itemize}
+    \item If a link was clicked it means it was relevant for the user,
+      not relevant on an absolute scale
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Analyzing Clicks (2)}
+  Suppose we have the following links (* means the link was clicked): \newline
+  \begin{itemize}
+  \item $L_1^{*}$, $L_2$, $L_3^{*}$, $L_4$, $L_5^{*}$, $L_6$, $L_7$
+  \end{itemize}
+  We can extract a \textbf{partial} ordering relation (rel = relevance)
+  \begin{itemize}
+    \item $rel(L_3) > rel(L_2)$, $rel(L_5) > rel(L_2)$, $rel(L_5) > rel(L_4)$
+    \item We call this ``click $>$ skip above''
+    \item Other strategies:
+      \begin{itemize}
+      \item last click $>$ skip above
+      \item click $>$ earlier click
+      \item click $>$ skip previous
+      \item click $>$ no-click next
+      \end{itemize}
+    \item Similar strategies for query chains
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Analyzing Clicks (3)}
+  \begin{itemize}
+  \item Check if these strategies are consistent with explicit feedback
+  \item Result: \textbf{yes}, most of them are (with $> 80\%$ accuracy)
+    \begin{itemize}
+    \item click $>$ skip above
+    \item last click $>$ skip above
+    \item click $>$ skip previous
+    \item click $>$ no-click next
+    \end{itemize}
+  \end{itemize}
+\end{frame}
