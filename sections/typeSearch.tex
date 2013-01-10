@@ -10,15 +10,27 @@
 
 \begin{frame}{Retrieval Model}
   \includegraphics[width=\textwidth]{img/typeSearch.png}
-\end{frame}
+  \begin{columns}
+  \begin{column}[l]{0.5\textwidth}
+  \begin{center}
+  Phase I:\\
+  \begin{itemize}
+  \item query each category
+  \item obtain ranked results
+  \end{itemize}
+  \end{center}
+  \end{column}
+  \begin{column}[c]{0.5\textwidth}
+  \begin{center}
+  Phase II: \\
+  \begin{itemize}
+  \item merge lists
+  \item \small{final rank = f(rank, type score)}
+  \end{itemize}
+  \end{center}
+  \end{column}
+  \end{columns}
 
-\begin{frame}{Retrieval Model (2)}
- Two phases
- \begin{itemize}
- \item Rank documents from each sub-collection, obtaining both a 
-   rank list and a type score
- \item Merge the results
- \end{itemize}
 \end{frame}
 
 \begin{frame}{Type-specific Retrieval}
