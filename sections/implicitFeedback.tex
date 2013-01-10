@@ -1,33 +1,30 @@
 \subsection{Implicit Feedback Analysis}
 
 \begin{frame}{Implicit Feedback}
+  Explicit feedback
   \begin{itemize}
-  \item Explicit feedback
+  \item Ask users to rank results
+  \end{itemize}
+
+  Implicit feedback
+  \begin{itemize}
+  \item \textbf{On what links did the user click?}
+  \item Eye Tracking
+  \end{itemize}
+
+
+  Is implicit feedback useful?
+  \begin{itemize}
+  \item Pros
     \begin{itemize}
-    \item Ask users to rank results
+    \item Easier to obtain in large quantities
+    \item No burden on the user
     \end{itemize}
-
-  \item Implicit feedback
+  \item Cons
     \begin{itemize}
-    \item \textbf{On what links did the user click?}
-    \item Eye Tracking
+    \item More difficult to interpret
+    \item Potentially noisy
     \end{itemize}
-
-
-  \item Is implicit feedback useful?
-    \begin{itemize}
-    \item Pros
-      \begin{itemize}
-        \item Easier to obtain in large quantities
-        \item No burden on the user
-      \end{itemize}
-    \item Cons
-      \begin{itemize}
-        \item More difficult to interpret
-        \item Potentially noisy
-      \end{itemize}
-    \end{itemize}
-
   \end{itemize}
 \end{frame}
 
@@ -57,27 +54,25 @@
 %\end{frame}
 
 \begin{frame}{Analyzing Clicks}
+  Are clicks absolute relevance judgments?
   \begin{itemize}
-  \item Are clicks absolute relevance judgments?
+  \item Short answer: No
+  \item Trust Bias
     \begin{itemize}
-    \item Short answer: No
-    \item Trust Bias
-      \begin{itemize}
-      \item Users trust the search engine
-      \item First link receives the most clicks
-        (Even if the first two results are swapped without user knowledge)
-      \end{itemize}
-    \item Quality-of-Context Bias
-      \begin{itemize}
-      \item If the relevance of the results decreases, users click on links
-        that are on average less relevant
-      \end{itemize}
+    \item Users trust the search engine
+    \item First link receives the most clicks
+      (Even if the first two results are swapped without user knowledge)
     \end{itemize}
-  \item Clicks are only relative relevance judgments
+  \item Quality-of-Context Bias
     \begin{itemize}
-    \item If a link was clicked it means it was relevant for the user,
-      not relevant on an absolute scale
+    \item If the relevance of the results decreases, users click on links
+      that are on average less relevant
     \end{itemize}
+  \end{itemize}
+  Clicks are only relative relevance judgments
+  \begin{itemize}
+  \item If a link was clicked it means it was relevant for the user,
+    not relevant on an absolute scale
   \end{itemize}
 \end{frame}
 
