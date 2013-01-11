@@ -21,6 +21,93 @@ the semantic aspects (generalized models)
 
 \end{frame}
 
+\begin{frame}{Query Expansion}
+  \begin{itemize}
+    \item Add words to query to improve quality of results
+    \item \textit{apple} $\leftarrow$ fruit or company? Person or job seeking?
+    \item What words to include?
+    \pause
+    \begin{description}
+      \item[very frequent terms] not useful
+      \item[infrequent terms] likely to help, but too few of them
+      \item[very infrequent terms] better as relevance indicators
+      \item[middle frequency terms] quite useful, preferred
+    \end{description}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Including a new term}
+  \begin{itemize}
+    \item Binary Independence Formula: $p$ relevant, $q$ irrelevant
+    \begin{equation}
+    w_t = log \frac{p_t(1-q_t)}{q_t(1-p_t)}
+    \end{equation}
+    \item experiments: $N$ - number of docs, $R$ - rated by user, $n$ -
+    indexed, $r$ - relevants
+    \begin{equation}
+    p_t = \frac{r}{R}
+    \end{equation}
+    \begin{equation}
+    q_t = \frac{n - r}{N - R}
+    \end{equation}
+    \item Porter
+    \begin{equation}
+    w_t = \frac{r}{R} - \frac{n}{N}
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Context based expansion}
+  \begin{itemize}
+    \item global - use entire corpus
+    \item local - use high ranking documents
+      \begin{itemize}
+        \item local feedback
+        \item local context
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Global Context Analysis (Phrasefinder)}
+  \begin{itemize}
+    \item concept = noun phrase
+    \item context = fixed size window in document (sentences)
+    \item treat concept as pseudodocument
+    \item \textit{airline pilot} $\rightarrow$ pay, strike, safety, air, traffic, FAA
+    \item robust, reusable thesaurus like structure
+    \item space-expensive, degrades queries
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Local Context Analysis}
+  \begin{itemize}
+    \item noun groups from best ranked passages in top ranked docs
+    \item exclude cooccurrences between start/end of doc
+    \item rank concepts $\sim$ tf-idf
+    \item computationally practical, single pass through collection
+    \item extra search when expanding
+    \item \textit{Status of nuclear proliferation treaties} $\rightarrow$ China, Iraq
+    \pause \item \textit{As a result of DNA testing, are more defendants being absolved or convicted of crimes?} $\rightarrow$ oil spill
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Expansion by clustering}
+  \begin{itemize}
+    \item Iterative Single Keyword Refinement
+    \item \textit{apple}, candidates: \textit{job}, \textit{store}, \textit{location}, \textit{fruit}
+    \begin{table}[h]
+      \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        keyword & cluster & allResults & cost & benefit & value \\\hline\hline
+        job & $R_1, R_2 \ldots R_6$ & $R'_1, R'_2 \ldots R'_8$ & 6 & 8 & 1.33 \\\hline
+        store & $R_1 \ldots R_4$ & $R'_1, \ldots R'_4, R'_9$ & 4 & 5 & 1.25 \\\hline
+        location & $R_2 \ldots R_5$ & $R'_5, \ldots R'_8, R'_{10}$ & 4 & 5 & 1.25 \\\hline
+        fruit & $R_1, R_2, R_3$ & $R'_2, R'_3, R'_4$ & 3 & 3 & 1.00 \\\hline
+      \end{tabular}
+    \end{table}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Semantic similarity measures}
 	\begin{columns}
